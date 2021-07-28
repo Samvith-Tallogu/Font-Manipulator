@@ -1,3 +1,8 @@
+shapeSize = 0;
+leftWristx = 0;
+rightWristx = 0;
+nosex = 0;
+nosey = 0;
 function preload() {}
 function setup() {
     canvas = createCanvas(450, 350);
@@ -10,8 +15,15 @@ function setup() {
 }
 
 function gotPoses(results) {
-    if(results.length > 0){
+    if (results.length > 0) {
         console.log(results);
+        nosex = results[0].pose.nose.x;
+        nosey = results[0].pose.nose.y;
+        console.log('nose X =' + nosex + 'nose Y =' + nosey);
+        leftWristx = results[0].pose.leftWrist.x;
+        rightWristx = results[0].pose.rightWrist.x;
+        shapeSize = floor(leftWristx - rightWristx);
+        console.log("Left:" + leftWristx + "Right:" + rightWristx + "Side:" + shapeSize);
     }
 }
 
@@ -23,4 +35,8 @@ function modelloaded(){
 
 function draw() {
     background('#E34234');
+    text('Samvith', nosex, nosey);
+    textSize(shapeSize);
+    fill('#FFFFFF')
+
 }
